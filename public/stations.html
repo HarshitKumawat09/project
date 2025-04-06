@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stations - EV Charge Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">⚡ EV Charge Finder</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="stations.html" class="active">Stations</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+            
+        </nav>
+    </header>
+
+    <div class="stations-container">
+        <h1>Available EV Charging Stations</h1>
+
+        <!-- Search Bar -->
+        <input type="text" id="search" placeholder="Search by Station Name...">
+        <button onclick="searchStation()">Search</button>
+
+        <!-- Result Section -->
+        <div id="search-result"></div>
+
+        <!-- Bold Note -->
+        <h2 class="coming-soon">⚡ More station listings coming soon!! ⚡</h2>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 EV Charge Finder. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        async function searchStation() {
+            const searchInput = document.getElementById('search').value.trim().toLowerCase();
+            const resultDiv = document.getElementById('search-result');
+
+            // Clear previous results
+            resultDiv.innerHTML = "";
+
+            try {
+                const response = await fetch('/api/stations');
+                const stations = await response.json();
+
+                // Find matching station
+                const matchedStation = stations.find(station =>
+                    station.name.toLowerCase() === searchInput
+                );
+
+                if (matchedStation) {
+                    resultDiv.innerHTML = `
+                        <div class="station-card">
+                            <h3>${matchedStation.name}</h3>
+                            <p>Status: <span class="${getStatusClass(matchedStation.status)}">${matchedStation.status}</span></p>
+                            <p>Latitude: ${matchedStation.lat}</p>
+                            <p>Longitude: ${matchedStation.lng}</p>
+                            <button onclick="viewReviews('${matchedStation.name}')">See Reviews</button>
+                        </div>
+                        <div id="reviews-container"></div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="no-record">No record found.</div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error fetching stations:", error);
+                resultDiv.innerHTML = `<div class="error">Error fetching data. Please try again later.</div>`;
+            }
+        }
+
+        async function viewReviews(stationName) {
+            const reviewsContainer = document.getElementById('reviews-container');
+
+            try {
+                const response = await fetch(`/api/review/${stationName}`);
+                const reviews = await response.json();
+
+                let reviewHTML = reviews.length
+                    ? reviews.map((r, i) => `<p>${i + 1}. ${r}</p>`).join("")
+                    : "<p>No reviews yet.</p>";
+
+                reviewsContainer.innerHTML = `
+                    <div class="reviews-section">
+                        <h4>Reviews for ${stationName}</h4>
+                        ${reviewHTML}
+                    </div>
+                `;
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+                reviewsContainer.innerHTML = `<div class="error">Error loading reviews.</div>`;
+            }
+        }
+
+        // Function to style status based on availability
+        function getStatusClass(status) {
+            if (status === "Available") return "status available";
+            if (status === "Busy") return "status busy";
+            if (status === "Under Maintenance") return "status maintenance";
+            return "status unknown";
+        }
+    </script>
+</body>
+</html>

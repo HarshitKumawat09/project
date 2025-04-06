@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - EV Charge Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">⚡ EV Charge Finder</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="stations.html">Stations</a>
+            <a href="about.html">About</a>
+            <a href="contact.html" class="active">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="register.html">Register</a>
+        </nav>
+    </header>
+
+    <div class="contact-container">
+        <h1>📞 Contact Us</h1>
+        <p>Have any questions or need support? Reach out to us!</p>
+
+        <div class="contact-info">
+            <p><strong>Email:</strong> support@evchargefinder.com</p>
+            <p><strong>Phone:</strong> +91 999xxxxxxx</p>
+            <p><strong>Address:</strong> Jaipur, India</p>
+        </div>
+
+        <h2>📩 Send Us a Message</h2>
+        <form id="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div id="contact-response"></div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 EV Charge Finder. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Contact Form Submission
+        document.getElementById("contact-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const responseDiv = document.getElementById("contact-response");
+
+            if (name && email && message) {
+                responseDiv.innerHTML = `<p style="color: green;">Thank you, ${name}! Your message has been sent.</p>`;
+                document.getElementById("contact-form").reset();
+            } else {
+                responseDiv.innerHTML = `<p style="color: red;">Please fill in all fields.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

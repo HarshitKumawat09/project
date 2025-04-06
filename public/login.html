@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EV Charge Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">⚡ EV Charge Finder</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Stations</a>
+            <a href="#">About</a>
+            <a href="contact.html">Contact</a>
+
+            <a href="login.html" class="active">Login</a>
+            <a href="register.html">Register</a>
+            
+        </nav>
+    </header>
+
+    <!-- Login Form -->
+    <div class="form-container">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+
+            <!-- Captcha Section -->
+            <div class="captcha">
+                <div class="captcha-code" id="captcha-code">AB12C</div>
+                <input type="text" placeholder="Enter Captcha" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+    <div class="social-login">
+        <p class="or-text">Or continue with</p>
+        <button class="google-btn" onclick="continueWithGoogle()">
+            <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google Logo">
+            Continue with Google
+        </button>
+    </div>
+    
+    
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 EV Charge Finder. All Rights Reserved.</p>
+        <p>Contact: <a href="mailto:support@evchargefinder.com">support@evchargefinder.com</a></p>
+        <p>
+            Follow us:
+            <a href="https://facebook.com" target="_blank">Facebook</a> |
+            <a href="https://twitter.com" target="_blank">Twitter</a> |
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+        </p>
+    </div>
+
+    <script>
+        // Captcha Generator
+        document.addEventListener("DOMContentLoaded", () => {
+            const captcha = document.getElementById("captcha-code");
+            captcha.innerText = Math.random().toString(36).substring(2, 7).toUpperCase();
+        });
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EV Charge Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">⚡ EV Charge Finder</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="#">Stations</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="login.html">Login</a>
+            <a href="register.html" class="active">Register</a>
+        </nav>
+    </header>
+
+    <!-- Registration Form -->
+    <div class="form-container">
+        <h2>Register</h2>
+        <form action="/register" method="POST">
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <input type="password" placeholder="Confirm Password" required>
+
+            <!-- Captcha Section -->
+            <div class="captcha">
+                <div class="captcha-code" id="captcha-code">XY99Z</div>
+                <input type="text" placeholder="Enter Captcha" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 EV Charge Finder. All Rights Reserved.</p>
+        <p>Contact: <a href="mailto:support@evchargefinder.com">support@evchargefinder.com</a></p>
+        <p>
+            Follow us:
+            <a href="https://facebook.com" target="_blank">Facebook</a> |
+            <a href="https://twitter.com" target="_blank">Twitter</a> |
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+        </p>
+    </div>
+
+    <script>
+        // Captcha Generator
+        document.addEventListener("DOMContentLoaded", () => {
+            const captcha = document.getElementById("captcha-code");
+            captcha.innerText = Math.random().toString(36).substring(2, 7).toUpperCase();
+        });
+    </script>
+</body>
+</html>
+
